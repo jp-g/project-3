@@ -1,0 +1,32 @@
+To automate WAR file artifact deployment and integrate Ansible with Jenkins CI server, follow these steps:
+1. Configure Jenkins server as Ansible provisioning machine
+First, ensure that Ansible is installed on the Jenkins server. If not, install it using the appropriate package manager for your operating system.
+2. Install Ansible plugins in Jenkins CI server
+Install the Ansible plugin in Jenkins by navigating to "Manage Jenkins" > "Manage Plugins" > "Available" and search for "Ansible". Install the plugin and restart Jenkins if required.
+3. Prepare Ansible playbook to run Maven build on Jenkins CI server
+Create an Ansible playbook that will run the Maven build on the Jenkins CI server. This playbook should include tasks to:
+
+    Check out the Java application source code from the repository
+    Run the Maven build to create the WAR file
+
+4. Prepare Ansible playbook to execute deployment steps on the remote web container with restart of the web container post deployment
+Create another Ansible playbook that will perform the following tasks:
+
+    Install Java and Tomcat on the target server (if not already installed)
+    Deploy the WAR file to the target server's web container (e.g., Tomcat or Jetty)
+    Restart the web container to apply the changes
+
+5. Create a Jenkins pipeline job
+Create a Jenkins pipeline job that will execute the following steps:
+
+    Run the Ansible playbook to build the Java application and create the WAR file
+    Run the Ansible playbook to deploy the WAR file to the target server and restart the web container
+
+To create the Jenkins pipeline job, follow these steps:
+
+    In Jenkins, click on "New Item" and select "Pipeline".
+    Provide a name for the pipeline job and click "OK".
+    In the "Pipeline" section, choose "Pipeline script from SCM" and provide the repository URL containing the Jenkinsfile.
+    Save the pipeline job.
+
+Now, whenever you run the Jenkins pipeline job, it will execute the Ansible playbooks to build the Java application, create the WAR file, deploy it to the target server, and restart the web container.
